@@ -1,5 +1,5 @@
 FROM ubuntu:focal
-MAINTAINER romeOz <serggalka@gmail.com>
+MAINTAINER thoni56 <thomas@nilefalk.se>
 
 ENV OS_LOCALE="en_US.UTF-8"
 RUN apt-get update && apt-get install -y locales && locale-gen ${OS_LOCALE}
@@ -15,7 +15,7 @@ ENV APACHE_CONF_DIR=/etc/apache2 \
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN	\
-	BUILD_DEPS='software-properties-common' \
+	BUILD_DEPS='software-properties-common unzip' \
     && dpkg-reconfigure locales \
 	&& apt-get install --no-install-recommends -y $BUILD_DEPS
 

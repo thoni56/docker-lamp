@@ -12,8 +12,6 @@ ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_CONF_DIR=/etc/php/7.4 \
     PHP_DATA_DIR=/var/lib/php
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-
 RUN	\
 	BUILD_DEPS='software-properties-common unzip' \
     && dpkg-reconfigure locales \
@@ -49,7 +47,6 @@ RUN \
 	# Forward request and error logs to docker log collector
 	&& ln -sf /dev/stdout /var/log/apache2/access.log \
 	&& ln -sf /dev/stderr /var/log/apache2/error.log \
-	&& chmod 755 /sbin/entrypoint.sh \
 	&& chown www-data:www-data ${PHP_DATA_DIR} -Rf
 
 COPY ./configs/apache2.conf ${APACHE_CONF_DIR}/apache2.conf
@@ -59,6 +56,10 @@ WORKDIR /var/www/html/
 RUN echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
 
 EXPOSE 80 443
+
+COPY entrypoint.sh /sbin/entrypoint.sh
+RUN \
+    chmod 755 /sbin/entrypoint.sh
 
 # By default, simply start apache.
 CMD ["/sbin/entrypoint.sh"]

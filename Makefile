@@ -1,2 +1,2 @@
 all:
-	docker build -t lamp:bionic-7.4 .
+	docker build -t thoni56/lamp:bionic-7.4 .

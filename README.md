@@ -26,3 +26,10 @@ to get a Docker image named `lamp` and tagged with `jammy-8.1`,
 containing, of course, Ubuntu jammy (22.04) with PHP 8.1.
 
 Tweak the `Makefile` to get your unique combination.
+
+Do
+
+    make USER=me <config>
+
+(or change the variable in the `Makefile` and the images will be
+registered under the "user" `me`.

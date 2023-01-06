@@ -12,6 +12,11 @@ ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_CONF_DIR=/etc/php/$PHP \
     PHP_DATA_DIR=/var/lib/php
 
+RUN \
+    # MySQL/MariaDB \
+    apt-get update && apt-get upgrade -y && \
+    apt-get install mariadb-server mariadb-client -y
+
 RUN	\
     BUILD_DEPS='software-properties-common unzip nano gpg-agent' \
     && dpkg-reconfigure locales \
@@ -30,11 +35,6 @@ RUN \
     && apt-get install -y apache2 libapache2-mod-php$PHP \
     && cp /dev/null ${APACHE_CONF_DIR}/conf-available/other-vhosts-access-log.conf \
     && a2enmod rewrite php$PHP 
-
-RUN \
-    # MySQL/MariaDB \
-    apt-get update && apt-get upgrade -y && \
-    apt-get install mariadb-server mariadb-client -y
 
 RUN \
     # Cleaning \

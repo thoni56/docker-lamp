@@ -1,4 +1,4 @@
-USER = thon56
+USER = thoni56
 
 all: focal-7.4 focal-8.0 focal-8.1 jammy-7.4 jammy-8.0 jammy-8.1
 

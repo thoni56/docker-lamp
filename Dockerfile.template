@@ -13,7 +13,7 @@ ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_DATA_DIR=/var/lib/php
 
 RUN	\
-    BUILD_DEPS='software-properties-common unzip nano' \
+    BUILD_DEPS='software-properties-common unzip nano gpg-agent' \
     && dpkg-reconfigure locales \
 	&& apt-get install --no-install-recommends -y $BUILD_DEPS
 

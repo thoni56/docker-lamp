@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:$UBUNTU
 MAINTAINER thoni56 <thomas@nilefalk.se>
 
 ENV OS_LOCALE="en_US.UTF-8"
@@ -9,7 +9,7 @@ ENV LANG=${OS_LOCALE} \
     DEBIAN_FRONTEND=noninteractive
 
 ENV APACHE_CONF_DIR=/etc/apache2 \
-    PHP_CONF_DIR=/etc/php/7.4 \
+    PHP_CONF_DIR=/etc/php/$PHP \
     PHP_DATA_DIR=/var/lib/php
 
 RUN	\
@@ -21,17 +21,15 @@ RUN \
     # PHP \
     add-apt-repository -y ppa:ondrej/php \
 	&& apt-get update \
-    && apt-get install -y curl php7.4-cli php7.4-readline php7.4-mbstring php7.4-zip php7.4-intl php7.4-xml php7.4-json php7.4-curl php7.4-gd php7.4-pgsql php7.4-mysql php-pear
+    && apt-get install -y curl php$PHP-cli php$PHP-readline php$PHP-mbstring php$PHP-zip php$PHP-intl php$PHP-xml php$PHP-curl php$PHP-gd php$PHP-pgsql php$PHP-mysql php-json php-pear
 
 RUN \
     # Apache \
     add-apt-repository -y ppa:ondrej/apache2 \
 	&& apt-get update \
-    && apt-get install -y apache2 libapache2-mod-php7.4 \
+    && apt-get install -y apache2 libapache2-mod-php$PHP \
     && cp /dev/null ${APACHE_CONF_DIR}/conf-available/other-vhosts-access-log.conf \
-    && a2enmod rewrite php7.4 \
-	# Install composer
-	&& curl -sS https://getcomposer.org/installer | php -- --version=1.8.4 --install-dir=/usr/local/bin --filename=composer \
+    && a2enmod rewrite php$PHP 
 
 RUN \
     # MySQL/MariaDB \

@@ -23,5 +23,5 @@ jammy-8.1:
 
 define LAMP
 	UBUNTU=$(1) PHP=$(2) envsubst '$$UBUNTU $$PHP' < Dockerfile.template > Dockerfile
-	docker build -t $USER/lamp:$@ .
+	docker build -t $(USER)/lamp:$@ .
 endef

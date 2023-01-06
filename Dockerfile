@@ -13,7 +13,7 @@ ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_DATA_DIR=/var/lib/php
 
 RUN	\
-	BUILD_DEPS='software-properties-common unzip' \
+    BUILD_DEPS='software-properties-common unzip nano' \
     && dpkg-reconfigure locales \
 	&& apt-get install --no-install-recommends -y $BUILD_DEPS
 
@@ -60,7 +60,7 @@ COPY entrypoint.sh /sbin/entrypoint.sh
 RUN \
     chmod 755 /sbin/entrypoint.sh
 
-COPY 000-default.conf /etc/apache2/sites-available/
+COPY configs/000-default.conf /etc/apache2/sites-available/
 
 # By default, simply start apache.
 CMD ["/sbin/entrypoint.sh"]

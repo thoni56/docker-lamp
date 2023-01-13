@@ -47,15 +47,15 @@ RUN \
 	&& chown www-data:www-data ${PHP_DATA_DIR} -Rf
 
 COPY ./configs/apache2.conf ${APACHE_CONF_DIR}/apache2.conf
-COPY ./configs/ssl.conf ${APACHE_CONF_DIR}/ssl.conf
+COPY ./configs/ssl.conf ${APACHE_CONF_DIR}/conf-available/ssl.conf
 COPY ./configs/php.ini  ${PHP_CONF_DIR}/apache2/conf.d/custom.ini
 
-COPY ./configs/generate_certs.sh generate_certs.sh
+COPY ./configs/generate_certs.sh /var/www/html/generate_certs.sh
+COPY ./configs/apache-selfsigned.cnf /var/www/html/apache-selfsigned.cnf
 RUN \
-    mkdir -p /certs  && \
-    chmod u+x generate_certs.sh && \
-    ./generate_certs.sh
-
+    cd /var/www/html && \
+    pwd && \
+    chmod u+x generate_certs.sh
 
 WORKDIR /var/www/html/
 RUN echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php

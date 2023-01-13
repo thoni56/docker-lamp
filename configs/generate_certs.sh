@@ -1,8 +1,8 @@
-PATH="/certs"
-SERVER_KEY="$PATH/server.key"
-SERVER_CSR="$PATH/server.csr"
-SERVER_CRT="$PATH/server.crt"
-EXTFILE="$PATH/cert_ext.cnf"
+PATH="/etc/ssl"
+SERVER_KEY="$PATH/private/apache-selfsigned.key"
+SERVER_CSR="$PATH/certs/apache-selfsigned.csr"
+SERVER_CRT="$PATH/certs/apache-selfsigned.crt"
+EXTFILE="apache-selfsigned.cnf"
 OPENSSL_CMD="/usr/bin/openssl"
 COMMON_NAME="$1"
 
@@ -18,17 +18,17 @@ function show_usage {
 
 case $1 in
      -cn)
-         shift
-         COMMON_NAME="$1"
-         ;;
+	 shift
+	 COMMON_NAME="$1"
+	 ;;
      --help|-h)
-         show_usage
-         exit 0
-         ;;
+	 show_usage
+	 exit 0
+	 ;;
      *)
-        ## Use hostname as Common Name
-        COMMON_NAME=`/usr/bin/hostname`
-        ;;
+	## Use hostname as Common Name
+	COMMON_NAME=`/usr/bin/hostname`
+	;;
 esac
 
 # generating server key

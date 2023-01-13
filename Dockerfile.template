@@ -68,5 +68,5 @@ RUN \
 
 COPY configs/000-default.conf /etc/apache2/sites-available/
 
-# By default, simply start apache.
-CMD ["/sbin/entrypoint.sh"]
+ENTRYPOINT ["/sbin/entrypoint.sh"]
+CMD ["tail", "-f", "/dev/null"]

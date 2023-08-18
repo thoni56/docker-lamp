@@ -1,9 +1,6 @@
 USER = thoni56
 
-all: focal-7.4 focal-8.0 focal-8.1 jammy-7.4 jammy-8.0 jammy-8.1
-
-focal-7.4:
-	$(call LAMP,focal,7.4)
+all: focal-8.0 focal-8.1 jammy-7.4 jammy-8.0 jammy-8.1
 
 focal-8.0:
 	$(call LAMP,focal,8.0)
